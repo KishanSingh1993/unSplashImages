@@ -73,26 +73,6 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun ImageList(viewModel: MainViewModel) {
-    val images by viewModel.images.observeAsState(emptyList())
-
-    LazyColumn {
-        items(images) { image ->
-            Image(
-                painter = rememberImagePainter(data = image.urls.regular, builder = {
-                    crossfade(true)
-                }),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .padding(8.dp)
-            )
-        }
-    }
-}
-
-@Composable
 fun ImageGridList(viewModel: MainViewModel) {
     val images by viewModel.images.observeAsState()
 
@@ -119,6 +99,28 @@ fun ImageGridList(viewModel: MainViewModel) {
 fun Context.showToast(message: String, length: Int = Toast.LENGTH_LONG){
     Toast.makeText(this, message, length).show()
 }
+
+
+@Composable
+fun ImageList(viewModel: MainViewModel) {
+    val images by viewModel.images.observeAsState(emptyList())
+
+    LazyColumn {
+        items(images) { image ->
+            Image(
+                painter = rememberImagePainter(data = image.urls.regular, builder = {
+                    crossfade(true)
+                }),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .padding(8.dp)
+            )
+        }
+    }
+}
+
 
 
 //@Composable
