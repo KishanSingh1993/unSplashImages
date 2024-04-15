@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
         }
 
             if (isNetworkAvailable(applicationContext)){
-                viewModel.fetchRandomImages("wmBweE8cBqQR-XmyjU93JwXJdkzGRDqdtuszdXBElJc", 10000)
+                viewModel.fetchRandomImages("Your_Unsplash_API_Key", 10000)
             }
             else{
 
