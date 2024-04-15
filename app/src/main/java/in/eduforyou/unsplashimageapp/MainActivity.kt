@@ -1,12 +1,17 @@
 package `in`.eduforyou.unsplashimageapp
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,12 +22,19 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
+import `in`.eduforyou.unsplashimageapp.ui.theme.UnsplashImageAppTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -46,7 +58,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             ImageGridList(viewModel)
         }
-        viewModel.fetchRandomImages("wmBweE8cBqQR-XmyjU93JwXJdkzGRDqdtuszdXBElJc", 10000)
+
+            if (isNetworkAvailable(applicationContext)){
+                viewModel.fetchRandomImages("wmBweE8cBqQR-XmyjU93JwXJdkzGRDqdtuszdXBElJc", 10000)
+            }
+            else{
+
+                //val context = LocalContext.current
+                Log.d("Internet","No Internet")
+                applicationContext.showToast("No Internet Connection!!",Toast.LENGTH_LONG)
+            }
     }
 }
 
@@ -95,7 +116,30 @@ fun ImageGridList(viewModel: MainViewModel) {
     }
 }
 
+fun Context.showToast(message: String, length: Int = Toast.LENGTH_LONG){
+    Toast.makeText(this, message, length).show()
+}
 
 
+//@Composable
+//fun MainContent() {
+//    val context  = LocalContext.current
+//    Box(
+//        contentAlignment = Alignment.Center
+//    ) {
+//        // * Toast Sample
+//        Button(
+//            onClick = {
+//                // * Toast
+//                Toast.makeText(context,
+//                    "Hi i am toast",
+//                    Toast.LENGTH_LONG).show()
+//            },
+//            modifier = Modifier.align(Alignment.Center)
+//        ) {
+//            Text(text = "Toast")
+//        }
+//    }
+//}
 
 
